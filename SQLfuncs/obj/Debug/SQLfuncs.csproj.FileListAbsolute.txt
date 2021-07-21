@@ -1,0 +1,4 @@
+C:\Users\s.kholin.KUPIVIP\documents\visual studio 2013\Projects\SQLfuncs\SQLfuncs\bin\Debug\SQLfuncs.dll
+C:\Users\s.kholin.KUPIVIP\documents\visual studio 2013\Projects\SQLfuncs\SQLfuncs\bin\Debug\SQLfuncs.pdb
+C:\Users\s.kholin.KUPIVIP\documents\visual studio 2013\Projects\SQLfuncs\SQLfuncs\obj\Debug\SQLfuncs.dll
+C:\Users\s.kholin.KUPIVIP\documents\visual studio 2013\Projects\SQLfuncs\SQLfuncs\obj\Debug\SQLfuncs.pdb

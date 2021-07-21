@@ -1,0 +1,188 @@
+		// --> Emarsys BEGIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    class Emarsys
+    {
+        private readonly string baseURI;
+        private readonly string key;
+        private readonly string secret;
+
+        public Emarsys(string baseURI, string key, string secret)
+        {
+            this.baseURI = baseURI;
+            this.key = key;
+            this.secret = secret;
+        }
+       
+        private static string GetRandomString(int length)
+        {
+            // Guid.NewGuid().ToString().ToLower().Replace("-", ""); // 32 символа через GUID (0-9,a-f)
+            var random = new Random();
+            string[] chars = new string[] { "0", "2", "3", "4", "5", "6", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            var sb = new StringBuilder();
+            for (int i = 0; i < length; i++) sb.Append(chars[random.Next(chars.Length)]);
+            return sb.ToString();
+        }
+
+        public byte[] Send(string method, string uri, string postData, out string err) /*1.9.0*/
+        {
+            #if (FREEMEM)
+            GC.Collect();
+            #endif
+            err = "";
+            byte[] bytes = new byte[0];
+            try
+            {
+                string nonce = GetRandomString(32);// Guid.NewGuid().ToString().ToLower().Replace("-", "");
+                string timestamp = DateTime.UtcNow.ToString("o");
+                string passwordDigest = System.Convert.ToBase64String(Encoding.UTF8.GetBytes(CommonFunctions.Sha1(nonce + timestamp + secret)));
+                string authHeader = String.Format("Username=\"{0}\", PasswordDigest=\"{1}\", Nonce=\"{2}\", Created=\"{3}\"", key, passwordDigest, nonce, timestamp);
+                HttpWebRequest httpRequest = (HttpWebRequest)WebRequest.Create(this.baseURI + uri);
+                httpRequest.Method = method;
+                httpRequest.Headers.Add("X-WSSE: UsernameToken " + authHeader);
+                if ((method.Equals("POST"))||(method.Equals("PUT")))
+                {
+                    var data = Encoding.UTF8.GetBytes(postData);
+                    httpRequest.ContentType = "application/json;charset=\"utf-8\"";
+                    httpRequest.ContentLength = data.Length;
+                    using (var stream = httpRequest.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+                }
+                using (HttpWebResponse res = (HttpWebResponse)httpRequest.GetResponse())
+                {
+                    Stream ReceiveStream = res.GetResponseStream();
+                    CommonFunctions.StreamToBytes(ref ReceiveStream, out bytes);
+                    ReceiveStream = null;
+                }
+                return bytes;
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    using (WebResponse res = (e as System.Net.WebException).Response)
+                    {
+                        byte[] errbytes = null;
+                        Stream ReceiveStream = res.GetResponseStream();
+                        CommonFunctions.StreamToBytes(ref ReceiveStream, out errbytes);
+                        ReceiveStream = null;
+                        StringBuilder result = new StringBuilder(e.Message + '|');
+                        if (errbytes.Length != 0) {result.Append(System.Text.Encoding.UTF8.GetString(errbytes));};
+                        err = result.ToString();
+                    }
+                    return bytes;
+                }
+                catch (Exception exc)
+                {
+                    return Encoding.GetEncoding(1251).GetBytes(exc.Message);
+                }
+                //-----------------------------------------
+            }
+        }
+    }
+    // --> Emarsys END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    
+    
+    // -- Emarsys classes and procedures BEGIN ----------------------------------------------------------
+        private class EmarsysResult
+        {
+            public SqlString Result;
+            public SqlString Error;
+
+            public EmarsysResult(SqlString result, SqlString error)
+            {
+                Result = result;
+                Error = error;
+            }
+        }
+        
+        [Microsoft.SqlServer.Server.SqlFunction(DataAccess = DataAccessKind.Read
+                                               , FillRowMethodName = "Request_FillRow"
+                                               , TableDefinition = "result nvarchar(max), error nvarchar(max)")]
+        public static IEnumerable Request(SqlString Method, SqlString URI, SqlString json)
+        {
+            #if (FREEMEM)
+            GC.Collect();
+            #endif
+            string err = "";
+            string res = "";
+            Emarsys ES = null;
+            ArrayList resultCollection = new ArrayList();
+            byte[] bytes;
+            try
+            {
+                ES = new Emarsys("https://suite10.emarsys.net/api/v2/", "kupivip_tr002", "EPDE6c2dFfCRkMDwMspV");
+                bytes = ES.Send(Method.Value, URI.Value, json.Value, out err);
+                res = System.Text.Encoding.UTF8.GetString(bytes);
+                resultCollection.Add(new EmarsysResult(res, err));
+                return resultCollection;
+            }
+            catch (Exception e)
+            {
+                resultCollection.Add(new EmarsysResult("", e.Message));
+                return resultCollection;
+            }
+            finally
+            {
+                bytes = null;
+                ES = null;
+            }
+        }
+        
+        [Microsoft.SqlServer.Server.SqlFunction(DataAccess = DataAccessKind.Read
+                                               , FillRowMethodName = "Request_FillRow"
+                                               , TableDefinition = "result nvarchar(max), error nvarchar(max)")]
+        public static IEnumerable RequestEx(SqlString Method, SqlString User, SqlString Password, SqlString URI, SqlString json)
+        {
+            #if (FREEMEM)
+            GC.Collect();
+            #endif
+            string err = "";
+            string res = "";
+            Emarsys ES = null;
+            ArrayList resultCollection = new ArrayList();
+            byte[] bytes;
+            try
+            {
+                ES = new Emarsys("https://suite10.emarsys.net/api/v2/", User.Value, Password.Value);
+                bytes = ES.Send(Method.Value, URI.Value, json.Value, out err);
+                res = System.Text.Encoding.UTF8.GetString(bytes);
+                if (string.IsNullOrEmpty(res)) { res = "empty"; };
+                resultCollection.Add(new EmarsysResult(res, err));
+                return resultCollection;
+            }
+            catch (Exception e)
+            {
+                resultCollection.Add(new EmarsysResult("", e.Message));
+                return resultCollection;
+            }
+            finally
+            {
+                bytes = null;
+                ES = null;
+            }
+        }
+        public static void Request_FillRow(object resultCollection, out SqlString result, out SqlString error)
+        {
+            EmarsysResult emarsysresult = (EmarsysResult)resultCollection;
+            result = emarsysresult.Result;
+            error = emarsysresult.Error;
+        }
+        // -- Emarsys classes and procedures END ----------------------------------------------------------
+        
+        
+-------------------------------------------------------------------------------------------------------------------------------------------
+--- SQL contact request -------------------------------------------------------------------------------------------------------------------
+declare @JSONData varchar(max)
+declare @errorMsg varchar(max)
+declare @SendData varchar(1024)= 
+'{"key_id": "3"'+ 
+				',"1": "'    + 'dyatloff' +'"'+
+				',"3": "'    + 'dyatloff@km.ru' +'"'+
+				',"2810": "' + '0000000'+'"'+
+				'}'
+select @JSONData=IsNull(result,'{"result":"contact"}'), 
+       @errorMsg=IsNull(error,'CLR_EmarsysRequest(contact)') 
+from [dbo].[CLR_EmarsysRequest] ('PUT', 'contact/?create_if_not_exists=1', @SendData)
+select @JSONData, @errorMsg, @SendData        

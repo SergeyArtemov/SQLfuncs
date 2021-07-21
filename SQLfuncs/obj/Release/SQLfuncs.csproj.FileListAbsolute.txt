@@ -1,0 +1,29 @@
+C:\Users\s.kholin.KUPIVIP\documents\visual studio 2013\Projects\SQLfuncs\SQLfuncs\bin\Release\SQLfuncs.dll
+C:\Users\s.kholin.KUPIVIP\documents\visual studio 2013\Projects\SQLfuncs\SQLfuncs\bin\Release\SQLfuncs.pdb
+C:\Users\s.kholin.KUPIVIP\Documents\Visual Studio 2013\Projects\SQLfuncs\SQLfuncs\bin\Release\Newtonsoft.Json.dll
+C:\Users\s.kholin.KUPIVIP\Documents\Visual Studio 2013\Projects\SQLfuncs\SQLfuncs\bin\Release\Newtonsoft.Json.xml
+C:\CLR_DLL\SQLfuncs.dll
+C:\CLR_DLL\SQLfuncs.pdb
+C:\Users\s.kholin.KUPIVIP\Documents\Visual Studio 2013\Projects\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.dll
+C:\Users\s.kholin.KUPIVIP\Documents\Visual Studio 2013\Projects\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.pdb
+C:\CLR_DLL\SQLfuncs.dll.config
+C:\CLR_DLL\SQLfuncs.XmlSerializers.dll
+C:\Users\s.kholin.KUPIVIP\Documents\Visual Studio 2013\Projects\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.XmlSerializers.dll
+C:\Users\s.kholin.KUPIVIP\Documents\Visual Studio 2013\Projects\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.Properties.Resources.resources
+C:\Users\s.kholin.KUPIVIP\Documents\Visual Studio 2013\Projects\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csproj.GenerateResource.Cache
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csprojAssemblyReference.cache
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.Properties.Resources.resources
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csproj.GenerateResource.cache
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.dll
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.pdb
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.XmlSerializers.dll
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csproj.CoreCompileInputs.cache
+C:\Users\S.Artemov\Documents\Visual Studio 2019\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csproj.CopyComplete
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csprojAssemblyReference.cache
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.Properties.Resources.resources
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csproj.GenerateResource.cache
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csproj.CoreCompileInputs.cache
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.csproj.CopyComplete
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.dll
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.pdb
+C:\ProjectsCLR\SQLfuncs\SQLfuncs\obj\Release\SQLfuncs.XmlSerializers.dll

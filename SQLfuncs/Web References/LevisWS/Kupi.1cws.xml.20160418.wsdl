@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/"
+		xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:tns="https://89.17.48.79:61454"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:xsd1="https://89.17.48.79:61454"
+		name="Kupi"
+		targetNamespace="https://89.17.48.79:61454">
+	<types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+				xmlns:xs1="https://89.17.48.79:61454"
+				targetNamespace="https://89.17.48.79:61454"
+				elementFormDefault="qualified">
+			<xs:element name="PingPong">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PingPongResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return"
+								type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetPackage">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetPackageResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return"
+								type="xs:string"/>
+						<xs:element name="Пакет"
+								type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PutPackage">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Пакет"
+								type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PutPackageResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return"
+								type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</types>
+	<message name="PingPongRequestMessage">
+		<part name="parameters"
+				element="tns:PingPong"/>
+	</message>
+	<message name="PingPongResponseMessage">
+		<part name="parameters"
+				element="tns:PingPongResponse"/>
+	</message>
+	<message name="GetPackageRequestMessage">
+		<part name="parameters"
+				element="tns:GetPackage"/>
+	</message>
+	<message name="GetPackageResponseMessage">
+		<part name="parameters"
+				element="tns:GetPackageResponse"/>
+	</message>
+	<message name="PutPackageRequestMessage">
+		<part name="parameters"
+				element="tns:PutPackage"/>
+	</message>
+	<message name="PutPackageResponseMessage">
+		<part name="parameters"
+				element="tns:PutPackageResponse"/>
+	</message>
+	<portType name="KupiPortType">
+		<operation name="PingPong">
+			<input message="tns:PingPongRequestMessage"/>
+			<output message="tns:PingPongResponseMessage"/>
+		</operation>
+		<operation name="GetPackage">
+			<input message="tns:GetPackageRequestMessage"/>
+			<output message="tns:GetPackageResponseMessage"/>
+		</operation>
+		<operation name="PutPackage">
+			<input message="tns:PutPackageRequestMessage"/>
+			<output message="tns:PutPackageResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="KupiSoapBinding"
+			type="tns:KupiPortType">
+		<soapbind:binding style="document"
+				transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="PingPong">
+			<soapbind:operation style="document"
+					soapAction="https://89.17.48.79:61454#Kupi:PingPong"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPackage">
+			<soapbind:operation style="document"
+					soapAction="https://89.17.48.79:61454#Kupi:GetPackage"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="PutPackage">
+			<soapbind:operation style="document"
+					soapAction="https://89.17.48.79:61454#Kupi:PutPackage"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="KupiSoap12Binding"
+			type="tns:KupiPortType">
+		<soap12bind:binding style="document"
+				transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="PingPong">
+			<soap12bind:operation style="document"
+					soapAction="https://89.17.48.79:61454#Kupi:PingPong"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPackage">
+			<soap12bind:operation style="document"
+					soapAction="https://89.17.48.79:61454#Kupi:GetPackage"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="PutPackage">
+			<soap12bind:operation style="document"
+					soapAction="https://89.17.48.79:61454#Kupi:PutPackage"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="Kupi">
+		<port name="KupiSoap"
+				binding="tns:KupiSoapBinding">
+			<documentation> 
+				<wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/"
+						conformsTo="http://ws-i.org/profiles/basic/1.1"/>
+			</documentation>
+			<soapbind:address location="https://dc.ru.levi.com/kupi/ws/Kupi.1cws"/>
+		</port>
+		<port name="KupiSoap12"
+				binding="tns:KupiSoap12Binding">
+			<soap12bind:address location="https://dc.ru.levi.com/kupi/ws/Kupi.1cws"/>
+		</port>
+	</service>
+</definitions>
